@@ -1,0 +1,15 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Package Info{% endblock %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>List of installed packages</h1>
+  </div>
+  <input class="form-control" id="search" type="text" placeholder="Search..">
+  <br/>
+  <div id="packages" class="list-group">
+    {% for package in packages %}
+      <a href="/{{package}}" class="list-group-item list-group-item-action">{{ package }}</a>
+    {% endfor %}
+  </div>
+{% endblock %}

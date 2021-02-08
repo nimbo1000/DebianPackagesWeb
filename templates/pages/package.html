@@ -1,0 +1,47 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Package - {{package_name}}{% endblock %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>{{package_name}}</h1>
+    <hr>
+
+    <div>
+      <h3>Description:</h3>
+      <pre>
+        {{package_details.description}}
+      </pre>
+    </div>
+
+    <div>
+      <h3>Dependencies:</h3>
+      {% if package_details.depends | count == 0 %}
+        <p>None</p>
+      {% endif %}
+
+      {% for alt_depends in package_details.depends %}
+        <p>
+        {% for depends in alt_depends %}
+          {% if depends[1] %}
+            <a href="/{{depends[0]}}">{{depends[0]}}</a>
+          {% else %}
+            <span>{{depends[0]}}</span>
+          {% endif %}
+        {% endfor %}
+        </p>
+      {% endfor %}
+    </div>
+
+    <div>
+      <h3>Reverse dependencies:</h3>
+
+      {% if package_details.reverse_depends | count == 0 %}
+        <p>None</p>
+      {% endif %}
+
+      {% for rev_dep in package_details.reverse_depends %}
+        <p><a href="/{{ rev_dep }}">{{ rev_dep }}</a></p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
